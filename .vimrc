@@ -179,11 +179,11 @@ nnoremap <c-l> <c-w>l
 autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | execute "normal! g'\"" | endif
 
 " 主题
-" set background=dark
+set background=dark
 colorscheme blue
 
 " airline
-" let g:airline_theme="default"
+let g:airline_theme="default"
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 if !exists('g:airline_symbols')

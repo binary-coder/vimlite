@@ -79,8 +79,6 @@ function install_prepare_software_on_ubuntu()
     fi
 }
 
-}
-
 # 拷贝文件
 function copy_files()
 {
