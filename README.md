@@ -9,11 +9,11 @@ An automatic configuration program for vim
 
     `ubuntu16.04`及其以上系统。
 
-- 安装vimplus(建议在普通用户下安装)
+- 安装vimpluslite(建议在普通用户下安装)
 
     ```bash
-    git clone https://github.com/chxuan/vimplus.git ~/.vimplus
-    cd ~/.vimplus
+    git clone https://github.com/binary-coder/vimlite.git ~/.vimlite
+    cd ~/.vimlite
     ./install.sh
     ```
 
@@ -110,13 +110,13 @@ An automatic configuration program for vim
 
 ## Q & A
 
-- **`安装vimplus后Airline等插件有乱码，怎么解决？`**
+- **`安装后Airline等插件有乱码，怎么解决？`**
 
     linux和mac系统需设置终端字体为`Droid Sans Mono Nerd Font`。
 
 
-- **`在aaa用户下安装了vimplus，在bbb用户下不能使用？`**
+- **`在aaa用户下安装后，在bbb用户下不能使用？`**
 
-    目前vimplus是基于用户的，如果你想在其他用户下也能使用vimplus，也需要单独安装。
+    目前版本是基于用户的，如果你想在其他用户下也能使用，也需要单独安装。
 
 

@@ -39,6 +39,7 @@ set cursorline           " 高亮显示当前行
 set whichwrap+=<,>,h,l   " 设置光标键跨行
 set ttimeoutlen=0        " 设置<ESC>键响应时间
 set virtualedit=block,onemore   " 允许光标出现在最后一个字符的后面
+set mouse=a
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 代码缩进和排版
@@ -98,7 +99,7 @@ if has("gui_running")
     set guioptions-=T           " 隐藏工具栏
     set guioptions-=L           " 隐藏左侧滚动条
     set guioptions-=r           " 隐藏右侧滚动条
-    set guioptions-=b           " 隐藏底部滚动条
+    set guioptions+=b           " 底部滚动条
     set showtabline=0           " 隐藏Tab栏
     set guicursor=n-v-c:ver5    " 设置光标为竖线
 endif
@@ -110,13 +111,10 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'chxuan/cpp-mode'
 Plug 'chxuan/vim-edit'
-Plug 'chxuan/change-colorscheme'
 Plug 'chxuan/prepare-code'
 Plug 'chxuan/vim-buffer'
 Plug 'chxuan/vimplus-startify'
 Plug 'chxuan/tagbar'
-Plug 'Valloric/YouCompleteMe'
-Plug 'Yggdroot/LeaderF'
 Plug 'mileszs/ack.vim'
 Plug 'easymotion/vim-easymotion'
 Plug 'haya14busa/incsearch.vim'
@@ -181,12 +179,11 @@ nnoremap <c-l> <c-w>l
 autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | execute "normal! g'\"" | endif
 
 " 主题
-set background=dark
-let g:onedark_termcolors=256
-colorscheme onedark
+" set background=dark
+colorscheme blue
 
 " airline
-let g:airline_theme="onedark"
+" let g:airline_theme="default"
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 if !exists('g:airline_symbols')

@@ -63,54 +63,6 @@ function compile_vim_on_ubuntu()
     cd -
 }
 
-# 在centos上源代码安装vim
-function compile_vim_on_centos()
-{
-    sudo rm -rf /usr/bin/vi
-    sudo rm -rf /usr/bin/vim*
-    sudo rm -rf /usr/local/bin/vim*
-    sudo rm -rf /usr/share/vim/vim*
-    sudo rm -rf /usr/local/share/vim/vim*
-    rm -rf ~/vim
-
-    sudo yum install -y ruby ruby-devel lua lua-devel luajit \
-        luajit-devel ctags git python python-devel \
-        python34 python34-devel tcl-devel \
-        perl perl-devel perl-ExtUtils-ParseXS \
-        perl-ExtUtils-XSpp perl-ExtUtils-CBuilder \
-        perl-ExtUtils-Embed libX11-devel ncurses-devel
-    
-    git clone https://github.com/vim/vim.git ~/vim
-    cd ~/vim
-    ./configure --with-features=huge \
-        --enable-multibyte \
-        --with-tlib=tinfo \
-        --enable-rubyinterp=yes \
-        --enable-pythoninterp=yes \
-        --with-python-config-dir=/usr/local/python-2.7.14/lib/python2.7/config \
-        --enable-perlinterp=yes \
-        --enable-luainterp=yes \
-        --enable-gui=gtk2 \
-        --enable-cscope \
-        --prefix=/usr
-    make
-    sudo make install
-    cd -
-}
-
-# 安装mac平台必要软件
-function install_prepare_software_on_mac()
-{
-    brew install vim gcc cmake ctags-exuberant curl ack
-}
-
-# 安装centos发行版必要软件
-function install_prepare_software_on_centos()
-{
-    sudo yum install -y ctags automake gcc gcc-c++ kernel-devel cmake python-devel python3-devel curl fontconfig ack
-    compile_vim_on_centos
-}
-
 # 安装ubuntu发行版必要软件
 function install_prepare_software_on_ubuntu()
 {
@@ -127,10 +79,6 @@ function install_prepare_software_on_ubuntu()
     fi
 }
 
-# 安装archlinux发行版必要软件
-function install_prepare_software_on_archlinux()
-{
-    sudo pacman -S --noconfirm vim ctags automake gcc cmake python3 python2 curl ack
 }
 
 # 拷贝文件
@@ -151,13 +99,6 @@ function copy_files()
 
     rm -rf ~/.vim/ftplugin
     ln -s ${PWD}/ftplugin ~/.vim
-}
-
-# 安装mac平台字体
-function install_fonts_on_mac()
-{
-    rm -rf ~/Library/Fonts/Droid\ Sans\ Mono\ Nerd\ Font\ Complete.otf
-    cp ./fonts/Droid\ Sans\ Mono\ Nerd\ Font\ Complete.otf ~/Library/Fonts
 }
 
 # 安装linux平台字体
@@ -182,20 +123,6 @@ function install_vim_plugin()
     vim -c "PlugInstall" -c "q" -c "q"
 }
 
-# linux编译ycm插件
-function compile_ycm_on_linux()
-{
-    cd ~/.vim/plugged/YouCompleteMe
-    ./install.py --clang-completer
-}
-
-# mac编译ycm插件
-function compile_ycm_on_mac()
-{
-    cd ~/.vim/plugged/YouCompleteMe
-    ./install.py --clang-completer --system-libclang
-}
-
 # 打印logo
 function print_logo()
 {
@@ -216,25 +143,12 @@ function print_logo()
     printf "${normal}"
 }
 
-# 在mac平台安装vimplus
-function install_vimplus_on_mac()
-{
-    install_prepare_software_on_mac
-    copy_files
-    install_fonts_on_mac
-    download_vim_plug
-    install_vim_plugin
-    compile_ycm_on_mac
-    print_logo
-}
-
 function begin_install_vimplus()
 {
     copy_files
     install_fonts_on_linux
     download_vim_plug
     install_vim_plugin
-    compile_ycm_on_linux
     print_logo
 }
 
@@ -242,20 +156,6 @@ function begin_install_vimplus()
 function install_vimplus_on_ubuntu()
 {
     install_prepare_software_on_ubuntu
-    begin_install_vimplus
-}
-
-# 在centos发行版安装vimplus
-function install_vimplus_on_centos()
-{
-    install_prepare_software_on_centos
-    begin_install_vimplus
-}
-
-# 在archlinux发行版安装vimplus
-function install_vimplus_on_archlinux()
-{
-    install_prepare_software_on_archlinux
     begin_install_vimplus
 }
 
@@ -267,10 +167,6 @@ function install_vimplus_on_linux()
 
     if [ ${type} == "ubuntu" ]; then
         install_vimplus_on_ubuntu
-    elif [ ${type} == "centos" ]; then
-        install_vimplus_on_centos
-    elif [ ${type} == "archlinux" ]; then
-        install_vimplus_on_archlinux
     else
         echo "not support this linux platform type: "${type}
     fi
@@ -282,9 +178,7 @@ function main()
     type=`get_platform_type`
     echo "platform type: "${type}
 
-    if [ ${type} == "Darwin" ]; then 
-        install_vimplus_on_mac
-    elif [ ${type} == "Linux" ]; then
+    if [ ${type} == "Linux" ]; then
         install_vimplus_on_linux
     else
         echo "not support platform type: "${type}
